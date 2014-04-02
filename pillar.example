@@ -1,0 +1,25 @@
+apache:
+  user: www-data
+  group: www-data
+  sites:
+    www.example.com.conf:
+      # Jinja template for this site. Should be in
+      # files/etc/apache2/sites-available/<template>.jinja
+      template: default
+      # The following key:value pairs are used in the provided default template
+      addr: '*:80'
+      document_root: /home/bob/public_html
+      user: bob
+      group: www-data
+      server_admin: bob@allenta.com
+      server_name: www.example.com
+      server_alias: example.com
+      custom_log: /home/bob/log/www.example.com_access.log
+      error_log: /home/bob/log/www.example.com_error.log
+      log_level: warn
+      fast_cgi_external_server: -socket /var/run/php5-fpm_bob.socket
+      # Extra configuration to be added to the VirtualHost environment
+      extra_conf:|
+        # This is an example of snippet added to the conf from pillar data
+    disabled_sites:
+      - 000-default
