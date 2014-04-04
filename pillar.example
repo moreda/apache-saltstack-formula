@@ -5,7 +5,7 @@ apache:
     www.example.com.conf:
       # Jinja template for this site. Should be in
       # files/etc/apache2/sites-available/<template>.jinja
-      template: default
+      template: minimal
       # The following key:value pairs are used in the provided default template
       addr: '*:80'
       document_root: /home/bob/public_html

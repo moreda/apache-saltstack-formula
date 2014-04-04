@@ -14,14 +14,13 @@
   ErrorLog {{ site_attr['error_log'] }}
   LogLevel {{ site_attr['log_level'] }}
   CustomLog {{ site_attr['custom_log'] }} combined
-{% if site_attr['fast_cgi_external_server'] %}
+{%- if site_attr['fast_cgi_external_server'] %}
   <IfModule mod_fastcgi.c>
     AddHandler php5-fcgi .php
     Action php5-fcgi /php5-fcgi
     Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi {{ site_attr['fast_cgi_external_server'] }} -pass-header Authorization
   </IfModule>
-{% endif %}
-  {{ site_attr['extra_conf'] }}
-}
+{%- endif %}
+  {{ site_attr['extra_conf'] | default('')}}
 </VirtualHost>
