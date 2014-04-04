@@ -26,7 +26,7 @@ extend:
     - managed
     - template: jinja
     - source:
-      - salt://apache/files/etc/apache2/apache2.conf.{{ grains['id'] }}.jinja
+      - salt://apache/files/{{ grains['id'] }}/etc/apache2/apache2.conf.jinja
       - salt://apache/files/etc/apache2/apache2.conf.jinja
     - require:
       - pkg: apache
@@ -39,7 +39,7 @@ extend:
     - managed
     - template: jinja
     - source:
-      - salt://apache/files/etc/apache2/envvars.{{ grains['id'] }}.jinja
+      - salt://apache/files/{{ grains['id'] }}/etc/apache2/envvars.jinja
       - salt://apache/files/etc/apache2/envvars.jinja
     - require:
       - pkg: apache
@@ -53,7 +53,7 @@ extend:
   file:
     - managed
     - source:
-      - salt://apache/files/etc/apache2/sites-available/{{ site_attr['template'] }}.{{ grains['id'] }}.jinja
+      - salt://apache/files/{{ grains['id'] }}/etc/apache2/sites-available/{{ site_attr['template'] }}.jinja
       - salt://apache/files/etc/apache2/sites-available/{{ site_attr['template'] }}.jinja
     - template: jinja
     - context:
