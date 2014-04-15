@@ -3,6 +3,8 @@
 {% set site_attr = salt['pillar.get']('apache:sites:' ~ site) %}
 
 <VirtualHost {{ site_attr['addr'] }}>
+  ServerName {{ site_attr['server_name'] }}
+  ServerAlias {{ site_attr['server_alias'] }}
   ServerAdmin {{ site_attr['server_admin'] }}
   DocumentRoot {{ site_attr['document_root'] }}
   <Directory {{ site_attr['document_root'] }}/>
