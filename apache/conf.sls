@@ -3,8 +3,6 @@
 
 include:
   - apache
-  # We assume that we always want the actions module
-  - apache.mod_actions
 
 
 extend:
