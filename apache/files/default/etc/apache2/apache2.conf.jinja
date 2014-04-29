@@ -175,7 +175,12 @@ Include ports.conf
 #	Require all granted
 #</Directory>
 
-
+# Allow /home/*/public_html/ directories
+<Directory ~ "^/home/\w+/public_html/.*">
+  Options Indexes FollowSymLinks
+  AllowOverride None
+  Require all granted
+</Directory>
 
 
 # AccessFileName: The name of the file to look for in each directory
