@@ -17,7 +17,7 @@ apache:
       custom_log: /home/bob/log/www.example.com_access.log
       error_log: /home/bob/log/www.example.com_error.log
       log_level: warn
-      fast_cgi_external_server: -socket /var/run/php5-fpm_bob.socket
+      fast_cgi_external_server: unix:/var/run/php5-fpm_bob.socket
       # Extra configuration to be added to the VirtualHost environment
       extra_conf:|
         # This is an example of snippet added to the conf from pillar data
