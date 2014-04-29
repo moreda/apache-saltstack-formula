@@ -5,18 +5,10 @@ include:
   - apache
 
 
-extend:
-  apache:
-    user:
-      - present
-      - name: {{ salt['pillar.get']('apache:user') | default('www-data') }}
-      - require:
-        - pkg: apache
-    group:
-      - present
-      - name: {{ salt['pillar.get']('apache:group') | default('www-data') }}
-      - require:
-        - pkg: apache
+# This is a state file to configure apache. As there is a high variety of needs
+# I just choose a way to organize the confs. This state file is prone to be
+# forked to suit each one needs. Hopefully, as it is, should be enough for most
+# needs.
 
 
 {{ apache.config }}:
