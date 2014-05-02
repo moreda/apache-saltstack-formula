@@ -1,10 +1,26 @@
-================
+==============
 apache-formula
-================
+==============
 
 A saltstack formula to configure apache.
 
+This formula has been developed distributing id and state declarations in
+different files to make it usable in most situations. It should be useful from
+scenarios with a simple install of the package (without any special
+configuration) to a complete set-up with virtual hosts.
+
+Any special needs could be addressed forking the formula repo, even in-place at
+the server acting as master. I'm trying to keep this as general as possible and
+further general improvements would be added.
+
 .. note::
+
+    So far this is mostly designed for Debian os_family and apache 2.4.x.
+    Support for RedHat os_family will be appearing increasingly.
+
+    At this moment, the organization of sites (we can assume site == virtual
+    host) is completelly based in a Debian os_family organization. Soon I'll try
+    to implement the RedHat flavor that drops everything in a conf.d directory.
 
     See the full `Salt Formulas
     <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_ doc.
@@ -16,30 +32,48 @@ Available states
     :local:
 
 ``apache``
-------------
+----------
 
-Installs the apache package, and starts the associated template service.
+Installs the package and starts the associated service.
 
 ``conf``
-------------
+--------
 
-Configures apache.
+Configures the service and sites using info provided in pillar and templates.
 
-TODO: So far this is just for Debian/Ubuntu. Support
-additional os_family values as RedHat.
+``repo``
+--------
+
+Configures a repository to get alternative (usually updated) versions of the
+packages different than the ones provided by the default repository.
+
+``users``
+---------
+
+Declares users and groups that could be needed even in other formulas
+(e.g. in the users formula to make an user pertain to the service group).
 
 ``mod_actions``
-------------
+---------------
 
 Installs the mod_actions module.
 
-TODO: So far this is just for Debian/Ubuntu. Support
-additional os_family values as RedHat.
+``mod_pagespeed``
+-----------------
 
-``mod_fastcgi``
-------------
+Installs the mod_pagespeed module.
 
-Installs the mod_fastcgi module.
+``mod_proxy``
+-------------
 
-TODO: So far this is just for Debian/Ubuntu. Support
-additional os_family values as RedHat.
+Installs the mod_proxy module.
+
+``mod_proxy_fcgi``
+------------------
+
+Installs the mod_proxy_fcgi module.
+
+``mod_rewrite``
+---------------
+
+Installs the mod_rewrite module.

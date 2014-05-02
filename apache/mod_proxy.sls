@@ -1,11 +1,11 @@
 {% from "apache/map.jinja" import apache with context %}
 
 
-{% if grains['os_family']=="Debian" %}
 include:
   - apache
 
 
+{% if grains['os_family']=="Debian" %}
 a2enmod proxy:
   cmd:
     - run

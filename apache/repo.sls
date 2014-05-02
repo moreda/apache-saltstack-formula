@@ -5,7 +5,7 @@ include:
   - apache
 
 
-# This adds a conveniently updated repo for apache2
+# This adds a conveniently updated repo for apache 2.4.x
 {%if salt['grains.get']('os_family') == 'Debian' %}
 apache_repo:
   pkgrepo:
@@ -13,6 +13,8 @@ apache_repo:
     - ppa: ondrej/php5
     - require:
       - cmd: apache_repo
+    - require_in:
+      - pkg: apache
   cmd:
     - run
     - name: /usr/bin/apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C

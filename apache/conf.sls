@@ -38,8 +38,18 @@ include:
 
 
 {% for site in salt['pillar.get']('apache:sites', []) %}
-{% set site_attr = salt['pillar.get']('apache:sites:' ~ site) %}
-/etc/apache2/sites-available/{{ site }}:
+
+  {% set site_attr = salt['pillar.get']('apache:sites:' ~ site) %}
+
+  {% if site_attr['conf_filename'] is defined %}
+    {% set conf_filename = site_attr['conf_filename'] %}
+  {% else %}
+    {% set conf_filename = site ~ '.conf' %}
+  {% endif %}
+
+  {% if site_attr['state'] is not defined or
+        site_attr['state'] == 'enabled' %}
+/etc/apache2/sites-available/{{ conf_filename }}:
   file:
     - managed
     - source:
@@ -54,67 +64,76 @@ include:
       - service: apache
 
 
-/etc/apache2/sites-enabled/{{ site }}:
+/etc/apache2/sites-enabled/{{ conf_filename }}:
   file:
     - symlink
-    - target: /etc/apache2/sites-available/{{ site }}
+    - target: /etc/apache2/sites-available/{{ conf_filename }}
     - require:
       - pkg: apache
     - watch_in:
       - service: apache
 
 
+    {% if site_attr['create_dirs'] is defined and site_attr['create_dirs'] %}
+      {% if site_attr['document_root'] is defined %}
 {{ site_attr['document_root'] }}:
   file:
     - directory
-    - user: {{ site_attr['user'] }}
-    - group: {{ site_attr['group'] }}
+    - user: {{ site_attr['user'] | d('www-data') }}
+    - group: {{ site_attr['group'] | d('www-data') }}
     - mode: 2755
     - require:
-      - user: {{ site_attr['user'] }}
-      - group: {{ site_attr['group'] }}
+      - user: {{ site_attr['user'] | d('www-data') }}
+      - group: {{ site_attr['group'] | d('www-data') }}
     - require_in:
       - service: apache
+      {% endif %}
 
 
+      {% if site_attr['log_dir'] is defined %}
 {{ site_attr['log_dir'] }}:
   file:
     - directory
-    - user: {{ site_attr['user'] }}
-    - group: {{ site_attr['group'] }}
+    - user: {{ site_attr['user'] | d('www-data') }}
+    - group: {{ site_attr['group'] | d('www-data') }}
     - mode: 775
     - require:
-      - user: {{ site_attr['user'] }}
-      - group: {{ site_attr['group'] }}
+      - user: {{ site_attr['user'] | d('www-data') }}
+      - group: {{ site_attr['group'] | d('www-data') }}
     - require_in:
       - service: apache
-{% endfor %}
+      {% endif %}
+    {% endif %}
 
 
-{% for site in salt['pillar.get']('apache:disabled_sites',[]) %}
-/etc/apache2/sites-enabled/{{ site }}:
+  {% elif site_attr['state'] == "disabled" %}
+/etc/apache2/sites-enabled/{{ conf_filename }}:
   file:
     - absent
     - require:
       - pkg: apache
     - watch_in:
       - service: apache
-{% endfor %}
 
 
-{% for site in salt['pillar.get']('apache:absent_sites',[]) %}
-/etc/apache2/sites-enabled/{{ site }}:
+  {% elif site_attr['state'] == 'absent' %}
+/etc/apache2/sites-enabled/{{ conf_filename }}:
   file:
     - absent
     - require:
       - pkg: apache
     - watch_in:
       - service: apache
-/etc/apache2/sites-available/{{ site }}:
+
+
+/etc/apache2/sites-available/{{ conf_filename }}:
   file:
     - absent
     - require:
       - pkg: apache
     - watch_in:
       - service: apache
+
+
+  {% endif %}
 {% endfor %}
