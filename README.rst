@@ -58,44 +58,44 @@ Available states
 
 Installs the package and starts the associated service.
 
-``conf``
---------
+``apache.conf``
+---------------
 
 Configures the service and sites using info provided in pillar and templates.
 
-``repo``
---------
+``apache.repo``
+---------------
 
 Configures a repository to get alternative (usually updated) versions of the
 packages different than the ones provided by the default repository.
 
-``users``
----------
+``apache.users``
+----------------
 
 Declares users and groups that could be needed even in other formulas
 (e.g. in the users formula to make an user pertain to the service group).
 
-``mod_actions``
----------------
+``apache.mod_actions``
+----------------------
 
 Installs the mod_actions module.
 
-``mod_pagespeed``
------------------
+``apache.mod_pagespeed``
+------------------------
 
 Installs the mod_pagespeed module.
 
-``mod_proxy``
--------------
+``apache.mod_proxy``
+--------------------
 
 Installs the mod_proxy module.
 
-``mod_proxy_fcgi``
-------------------
+``apache.mod_proxy_fcgi``
+-------------------------
 
 Installs the mod_proxy_fcgi module.
 
-``mod_rewrite``
----------------
+``apache.mod_rewrite``
+----------------------
 
 Installs the mod_rewrite module.
