@@ -16,22 +16,22 @@ further general improvements would be added.
 The ``files`` directory is structured using a ``default`` root and
 optional ``<minion-id>`` directories:
 
-```
-files
-  |-- default
-  |        |-- etc
-  |        |    |-- foo.conf
-  |        |    `-- bar.conf
-  |        `-- usr/share/thingy/*
-  `-- <minion-id>
-          |-- etc
-          |    |-- foo.conf
-          |    `-- bar.conf
-          `-- usr/share/thingy/*
-```
+.. code:: asciidoc
+
+    files
+      |-- default
+      |        |-- etc
+      |        |    |-- foo.conf
+      |        |    `-- bar.conf
+      |        `-- usr/share/thingy/*
+      `-- <minion-id>
+              |-- etc
+              |    |-- foo.conf
+              |    `-- bar.conf
+              `-- usr/share/thingy/*
 
 This way we have certain flexibility to use different files for different
-minions. **It's not desgined to substitute pillar data** though. Remember that
+minions. **It's not desgined to substitute pillar data**. Remember that
 pillar has to be used for info that it's essential to be only known for a
 certain set of minions (i.e. passwords, private keys and such).
 
