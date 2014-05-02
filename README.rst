@@ -13,6 +13,28 @@ Any special needs could be addressed forking the formula repo, even in-place at
 the server acting as master. I'm trying to keep this as general as possible and
 further general improvements would be added.
 
+The ``files`` directory is structured like this, using a ``default`` root and
+optiona ``<minion-id>``directories.
+
+<pre>
+files
+  |-- default
+  |        |-- etc
+  |        |    |-- foo.conf
+  |        |    `-- bar.conf
+  |        `-- usr/share/thingy/*
+  `-- <minion-id>
+          |-- etc
+          |    |-- foo.conf
+          |    `-- bar.conf
+          `-- usr/share/thingy/*
+</pre>
+
+This way we have certain flexibility to use different files for different
+minions. *It's not desgined to substitute pillar data* though. Remember that
+pillar has to be used for info that it's essential to be only known for a
+certain set of minions (i.e. passwords, private keys and such).
+
 .. note::
 
     So far this is mostly designed for Debian os_family and apache 2.4.x.
