@@ -47,14 +47,21 @@ include:
     {% set conf_filename = site ~ '.conf' %}
   {% endif %}
 
+  {% if site_attr['template'] is defined %}
+    {% set template = site_attr['template'] %}
+  {% else %}
+    {% set template = 'minimal' %}
+  {% endif %}
+
+
   {% if site_attr['state'] is not defined or
         site_attr['state'] == 'enabled' %}
 /etc/apache2/sites-available/{{ conf_filename }}:
   file:
     - managed
     - source:
-      - salt://apache/files/{{ grains['id'] }}/etc/apache2/sites-available/{{ site_attr['template'] }}.jinja
-      - salt://apache/files/default/etc/apache2/sites-available/{{ site_attr['template'] }}.jinja
+      - salt://apache/files/{{ grains['id'] }}/etc/apache2/sites-available/{{ template }}.jinja
+      - salt://apache/files/default/etc/apache2/sites-available/{{ template }}.jinja
     - template: jinja
     - context:
         site: {{ site }}

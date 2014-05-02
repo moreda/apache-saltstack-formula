@@ -31,7 +31,7 @@ optional ``<minion-id>`` directories:
               `-- usr/share/thingy/*
 
 This way we have certain flexibility to use different files for different
-minions. **It's not desgined to substitute pillar data**. Remember that
+minions. **It's not designed to substitute pillar data**. Remember that
 pillar has to be used for info that it's essential to be only known for a
 certain set of minions (i.e. passwords, private keys and such).
 
