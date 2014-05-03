@@ -11,12 +11,17 @@ include:
 # needs.
 
 
+{% set files_switch = salt['pillar.get']('apache:files_switch', ['id']) %}
+
+
 {{ apache.config }}:
   file:
     - managed
     - template: jinja
     - source:
-      - salt://apache/files/{{ grains['id'] }}/etc/apache2/apache2.conf.jinja
+      {% for grain in files_switch if salt['grains.get'](grain) is defined -%}
+      - salt://apache/files/{{ salt['grains.get'](grain) }}/etc/apache2/apache2.conf.jinja
+      {% endfor -%}
       - salt://apache/files/default/etc/apache2/apache2.conf.jinja
     - require:
       - pkg: apache
@@ -29,7 +34,9 @@ include:
     - managed
     - template: jinja
     - source:
-      - salt://apache/files/{{ grains['id'] }}/etc/apache2/envvars.jinja
+      {% for grain in files_switch if salt['grains.get'](grain) is defined -%}
+      - salt://apache/files/{{ salt['grains.get'](grain) }}/etc/apache2/envvars.jinja
+      {% endfor -%}
       - salt://apache/files/default/etc/apache2/envvars.jinja
     - require:
       - pkg: apache
@@ -60,7 +67,9 @@ include:
   file:
     - managed
     - source:
-      - salt://apache/files/{{ grains['id'] }}/etc/apache2/sites-available/{{ template }}.jinja
+      {% for grain in files_switch if salt['grains.get'](grain) is defined -%}
+      - salt://apache/files/{{ salt['grains.get'](grain) }}/etc/apache2/sites-available/{{ template }}.jinja
+      {% endfor -%}
       - salt://apache/files/default/etc/apache2/sites-available/{{ template }}.jinja
     - template: jinja
     - context:
