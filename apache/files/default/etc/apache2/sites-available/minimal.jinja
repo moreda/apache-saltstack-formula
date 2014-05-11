@@ -21,7 +21,7 @@
   CustomLog {{ site_attr['custom_log'] | d(default_access_log) }} combined
   {% if site_attr['fast_cgi_external_server'] -%}
   <IfModule mod_proxy_fcgi.c>
-    ProxyPassMatch ^/(.*\.php(/.*)?)$ {{ site_attr['fast_cgi_external_server'] }}|fcgi://localhost{{ site_attr['document_root'] }}
+    ProxyPassMatch ^/(.*\.php(/.*)?)$ {{ site_attr['fast_cgi_external_server'] }}
   </IfModule>
   {% endif -%}
   {{ site_attr['extra_conf'] | d('') }}

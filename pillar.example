@@ -43,7 +43,11 @@ apache:
       custom_log: /var/www/bob/log/www.example.com_access.log
       error_log: /var/www/bob/log/www.example.com_error.log
       log_level: warn
-      fast_cgi_external_server: unix:/var/run/php5-fpm_bob.socket
+      # TCP version
+      #fast_cgi_external_server: fcgi://127.0.0.1:9000/var/www/bob/public_html/$1
+      # UNIX socket version
+      # The host localhost doesn't really matter, you can put whatever
+      fast_cgi_external_server: unix:/var/run/php5-fpm_bob.socket|fcgi://localhost/var/www/bob/public_html
       # Extra configuration to be added to the VirtualHost environment
       extra_conf: |
         # This is an example of snippet added to the conf from pillar data
