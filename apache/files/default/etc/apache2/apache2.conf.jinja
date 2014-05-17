@@ -207,6 +207,9 @@ LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combine
 LogFormat "%h %l %u %t \"%r\" %>s %O" common
 LogFormat "%{Referer}i -> %U" referer
 LogFormat "%{User-agent}i" agent
+{%- for log_format in salt['pillar.get']('apache:log_formats', []) %}
+LogFormat {{ log_format }}
+{%- endfor %}
 
 # Include of directories ignores editors' and dpkg's backup files,
 # see README.Debian for details.
