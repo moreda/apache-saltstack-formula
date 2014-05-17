@@ -112,6 +112,11 @@ packages different than the ones provided by the default repository.
 Declares users and groups that could be needed even in other formulas
 (e.g. in the users formula to make an user pertain to the service group).
 
+``apache.mod_mpm``
+----------------------
+
+Configures the mpm module selected in the pillar (default is mpm_prefork).
+
 ``apache.mod_actions``
 ----------------------
 

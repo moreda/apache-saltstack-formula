@@ -11,6 +11,21 @@ apache:
   user: www-data
   group: www-data
 
+  # MPM conf
+  mpm:
+    module: mpm_event
+    # these params apply depending on the selected mpm module
+    params:
+      max_connections_per_child: 0
+      max_request_workers: 150
+      max_spare_servers: 10
+      max_spare_threads: 75
+      min_spare_servers: 5
+      min_spare_threads: 25
+      start_servers: 2
+      thread_limit: 64
+      threads_per_child: 25
+
   # Logformat definitions
   log_formats:
     - '"%h %{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined_xff'
