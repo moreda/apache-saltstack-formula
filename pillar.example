@@ -59,9 +59,12 @@ apache:
       server_admin: bob@allenta.com
       server_name: www.example.com
       server_alias: example.com
-      custom_logs: 
+      custom_logs:
         - /var/www/bob/log/www.example.com_access.log combined_xff
       error_log: /var/www/bob/log/www.example.com_error.log
+      logrotate_files:
+        - /var/www/bob/log/www.example.com_error.log
+        - /var/www/bob/log/www.example.com_access.log
       log_level: warn
       # TCP version
       #fast_cgi_external_server: fcgi://127.0.0.1:9000/var/www/bob/public_html/$1
