@@ -1,3 +1,7 @@
+# Managed by saltstack
+
+{%- set mpm_param = salt['pillar.get']('apache:mpm:params', {}) %}
+
 # prefork MPM
 # StartServers: number of server processes to start
 # MinSpareServers: minimum number of server processes which are kept spare
