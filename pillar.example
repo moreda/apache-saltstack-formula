@@ -59,6 +59,7 @@ apache:
       server_admin: bob@allenta.com
       server_name: www.example.com
       server_alias: example.com
+      log_dir: /var/www/bob/log
       custom_logs:
         - /var/www/bob/log/www.example.com_access.log combined_xff
       error_log: /var/www/bob/log/www.example.com_error.log
