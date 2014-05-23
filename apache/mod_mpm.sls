@@ -42,14 +42,16 @@ a2dismod {{ mod }}:
     - require_in:
       - cmd: a2enmod {{ mpm_module }}
     - watch_in:
-      - service: apache
+      - module: apache_mpm_restart
+{% endfor %}
+
 
 # MPM change requires restart of apache
 apache_mpm_restart:
   module:
     - wait
-    - func: service.restart
+    - name: service.restart
     - m_name: apache2
 
-{% endfor %}
+
 {% endif %}
