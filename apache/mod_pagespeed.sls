@@ -28,6 +28,7 @@ a2enmod pagespeed:
 {{ dir }}:
   file:
     - directory
+    - makedirs: true
     - user: {{ salt['pillar.get']('apache:user', 'www-data') }}
     - group: {{ salt['pillar.get']('apache:group', 'www-data') }}
     - require:
