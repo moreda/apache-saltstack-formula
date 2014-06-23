@@ -5,6 +5,9 @@ apache:
   pkg:
     - installed
     - name: {{ apache.pkg }}
+    {% if apache.version is defined %}
+    - version: {{ apache.version }}
+    {% endif %}
   service:
     - running
     - name: {{ apache.service }}
