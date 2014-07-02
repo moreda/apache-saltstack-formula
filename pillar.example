@@ -52,7 +52,7 @@ apache:
       addr: '*:80'
       document_root: /var/www/bob/public_html
 
-      # Creates documento_root and log_dir directories with the specified
+      # Creates document_root and log_dir directories with the specified
       # user and group. It's your responsibility to ensure that user and group
       # exists
       create_dirs: True
